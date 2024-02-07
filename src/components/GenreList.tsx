@@ -12,9 +12,10 @@ import { Genre } from "../hooks/useGenres";
 
 interface Props {
   onSelectGenre: (genre: Genre) => void;
+  selectedGenre: Genre | null;
 }
 
-export default function GenreList({ onSelectGenre }: Props) {
+export default function GenreList({ selectedGenre, onSelectGenre }: Props) {
   const { data, isLoading, error } = useGenres();
 
   if (isLoading) return <Spinner />;
@@ -30,7 +31,7 @@ export default function GenreList({ onSelectGenre }: Props) {
               borderRadius={8}
               src={getCroppedImageUrl(genre.image_background)}
             />
-            <Button
+            <Button fontWeight={genre.id === selectedGenre?.id ?'bold': 'normal'}
               onClick={() => {
                 onSelectGenre(genre);
               }}
